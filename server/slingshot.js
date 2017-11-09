@@ -1,6 +1,6 @@
 import { s3Conf } from './s3-details.js';
 
-Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage, {
+Slingshot.createDirective("imageUploader", Slingshot.S3Storage, {
   AWSAccessKeyId: s3Conf.key,
   AWSSecretAccessKey: s3Conf.secret,
   bucket: s3Conf.bucket,
@@ -15,6 +15,7 @@ Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage, {
     return true;
   },
 
+  //// Code doesn't appear to be necessary. Was causing an error previously
   // temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
   //   var duration = Math.max(Math.round(expire / 1000), 900);
 
