@@ -25,5 +25,5 @@ This is a sample project that shows how to create an image uploader using Amazon
     3. Click “Permissions” to open the dropdown
         1. Click `Add/Edit CORS configuration` and paste in the following [Cors Configuration](https://github.com/quackware/meteor-slingshot-example/blob/master/iam_files/cors_configuration.xml)
         2. Click `Edit Bucket policy` and paste in this [Bucket Policy](https://github.com/quackware/meteor-slingshot-example/blob/master/iam_files/bucket_policy.json) making sure to replace `<awsaccountid>` with your account id (found in Account Settings), `<iamusername>` with your iam user in part 2), and `<bucketname>` you created above
-    4. Add your bucket name and region to settings.json
+    4. Add your bucket name and region to `settings.json`
 5. You should be good to go!
