@@ -1,8 +1,8 @@
 {
   "s3": {
-    "key": "YOURAWSKEY",
-    "secret": "YOURAWSSECRETKEY",
-    "bucket": "YOURBUCKETNAME",
-    "region": "YOURAWSREGION"
+    "key": "YOUR-AWS-KEY",
+    "secret": "YOUR-AWS-SECRET-KEY",
+    "bucket": "YOUR-S3-BUCKET-NAME",
+    "region": "YOUR-S3-AWS-REGION" //example: "eu-west-2"
   }
 }
