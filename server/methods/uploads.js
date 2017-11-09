@@ -1,3 +1,5 @@
+import { s3Conf } from '../s3-details.js';
+
 Meteor.methods({
   deleteUpload: function(id) {
     if (!this.userId) {
@@ -11,7 +13,7 @@ Meteor.methods({
     }
     // Delete from s3
     var resp = S3.deleteObjectSync({
-      Bucket: Meteor.settings.S3Bucket,
+      Bucket: s3Conf.bucket,
       Key: upload.key,
     });
 

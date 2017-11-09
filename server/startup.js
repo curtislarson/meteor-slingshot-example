@@ -1,6 +1,8 @@
+import { s3Conf } from './s3-details.js';
+
 AWS.config.update({
-  accessKeyId: Meteor.settings.AWSAccessKeyId,
-  secretAccessKey: Meteor.settings.AWSSecretAccessKey,
+  accessKeyId: s3Conf.key,
+  secretAccessKey: s3Conf.secret,
 });
 
 STS = new AWS.STS();

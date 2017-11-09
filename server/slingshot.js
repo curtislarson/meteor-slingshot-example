@@ -1,6 +1,12 @@
+import { s3Conf } from './s3-details.js';
 
+Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage, {
+  AWSAccessKeyId: s3Conf.key,
+  AWSSecretAccessKey: s3Conf.secret,
+  bucket: s3Conf.bucket,
+  acl: "public-read",
+  region: s3Conf.region,
 
-Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage.TempCredentials, {
   authorize: function() {
     if (!this.userId) {
       var message = "Please login before posting files";
@@ -9,15 +15,15 @@ Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage.TempCredentia
     return true;
   },
 
-  temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
-    var duration = Math.max(Math.round(expire / 1000), 900);
+  // temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
+  //   var duration = Math.max(Math.round(expire / 1000), 900);
 
-    STS.getSessionToken({
-      DurationSeconds: duration,
-    }, function(error, result) {
-      callback(error, result && result.Credentials);
-    });
-  }),
+  //   STS.getSessionToken({
+  //     DurationSeconds: duration,
+  //   }, function(error, result) {
+  //     callback(error, result && result.Credentials);
+  //   });
+  // }),
 
   key: function(file) {
     var rand = Math.floor(Math.random() * 9000000) + 1000000;
