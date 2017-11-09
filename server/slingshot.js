@@ -24,6 +24,7 @@ Slingshot.createDirective("imageUploader", Slingshot.S3Storage.TempCredentials, 
   }),
 
   key: function(file) {
+    // Folder where files will be uploaded:
     const directory = "uploads" + "/"
     const rand = Math.floor(Math.random() * 9000000) + 1000000;
     const name = file.name;
