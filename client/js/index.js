@@ -1,7 +1,7 @@
-var uploader = new Slingshot.Upload("floorPlanUploader");
+var uploader = new Slingshot.Upload("imageUploader");
 
 Template.index.events({
-  "change #floorPlanFileInput": function(event) {
+  "change #imageFileInput": function(event) {
     var file = event.currentTarget.files[0];
     uploader.send(file, function(err, url) {
       if (err) {

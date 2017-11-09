@@ -1,6 +1,10 @@
+import { s3Conf, STS } from './s3-details.js';
 
+Slingshot.createDirective("imageUploader", Slingshot.S3Storage.TempCredentials, {
+  bucket: s3Conf.bucket,
+  region: s3Conf.region,
+  acl: "public-read",
 
-Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage.TempCredentials, {
   authorize: function() {
     if (!this.userId) {
       var message = "Please login before posting files";
