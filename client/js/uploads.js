@@ -1,10 +1,10 @@
 Template.uploads.onCreated(function() {
-  var instance = this;
+  const instance = this;
 
   instance.uploadsLoaded = new ReactiveVar(false);
 
   instance.autorun(function() {
-    var handle = instance.subscribe("uploads");
+    const handle = instance.subscribe("uploads");
     if (handle.ready()) {
       instance.uploadsLoaded.set(true);
     }

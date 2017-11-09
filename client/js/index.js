@@ -1,8 +1,8 @@
-var uploader = new Slingshot.Upload("imageUploader");
+const uploader = new Slingshot.Upload("imageUploader");
 
 Template.index.events({
   "change #imageFileInput": function(event) {
-    var file = event.currentTarget.files[0];
+    const file = event.currentTarget.files[0];
     uploader.send(file, function(err, url) {
       if (err) {
         console.log("Error uploading", err);
