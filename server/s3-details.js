@@ -8,4 +8,8 @@ if (!(s3Conf && s3Conf.key && s3Conf.secret && s3Conf.bucket && s3Conf.region)) 
     throw new Meteor.Error('missing-s3-settings', 's3-details.js | Unable to fetch AWS S3 details from settings.json');
 }
 
-export { s3Conf };
+var STS = new AWS.STS(); // Using the AWS SDK to retrieve temporary credentials
+
+S3 = new AWS.S3();
+
+export { s3Conf, STS, S3 };

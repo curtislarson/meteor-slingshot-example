@@ -1,11 +1,9 @@
-import { s3Conf } from './s3-details.js';
+import { s3Conf, STS } from './s3-details.js';
 
-Slingshot.createDirective("imageUploader", Slingshot.S3Storage, {
-  AWSAccessKeyId: s3Conf.key,
-  AWSSecretAccessKey: s3Conf.secret,
+Slingshot.createDirective("imageUploader", Slingshot.S3Storage.TempCredentials, {
   bucket: s3Conf.bucket,
-  acl: "public-read",
   region: s3Conf.region,
+  acl: "public-read",
 
   authorize: function() {
     if (!this.userId) {
@@ -15,16 +13,15 @@ Slingshot.createDirective("imageUploader", Slingshot.S3Storage, {
     return true;
   },
 
-  //// Code doesn't appear to be necessary. Was causing an error previously
-  // temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
-  //   var duration = Math.max(Math.round(expire / 1000), 900);
+  temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
+    var duration = Math.max(Math.round(expire / 1000), 900);
 
-  //   STS.getSessionToken({
-  //     DurationSeconds: duration,
-  //   }, function(error, result) {
-  //     callback(error, result && result.Credentials);
-  //   });
-  // }),
+    STS.getSessionToken({
+      DurationSeconds: duration,
+    }, function(error, result) {
+      callback(error, result && result.Credentials);
+    });
+  }),
 
   key: function(file) {
     var rand = Math.floor(Math.random() * 9000000) + 1000000;
