@@ -1,16 +1,20 @@
+import { s3Conf, STS } from './s3-details.js';
 
+Slingshot.createDirective("imageUploader", Slingshot.S3Storage.TempCredentials, {
+  bucket: s3Conf.bucket,
+  region: s3Conf.region,
+  acl: "public-read",
 
-Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage.TempCredentials, {
   authorize: function() {
     if (!this.userId) {
-      var message = "Please login before posting files";
+      const message = "Please login before posting files";
       throw new Meteor.Error("Login Required", message);
     }
     return true;
   },
 
   temporaryCredentials: Meteor.wrapAsync(function(expire, callback) {
-    var duration = Math.max(Math.round(expire / 1000), 900);
+    const duration = Math.max(Math.round(expire / 1000), 900);
 
     STS.getSessionToken({
       DurationSeconds: duration,
@@ -20,11 +24,13 @@ Slingshot.createDirective("floorPlanUploader", Slingshot.S3Storage.TempCredentia
   }),
 
   key: function(file) {
-    var rand = Math.floor(Math.random() * 9000000) + 1000000;
-    var name = file.name;
-    var idx = name.lastIndexOf(".");
-    var noExtension = name.substring(0, idx);
-    var extension = name.substring(idx, name.length);
-    return "husd-" + noExtension + "-" + rand + extension;
+    // Folder where files will be uploaded:
+    const directory = "uploads" + "/"
+    const rand = Math.floor(Math.random() * 9000000) + 1000000;
+    const name = file.name;
+    const idx = name.lastIndexOf(".");
+    const noExtension = name.substring(0, idx);
+    const extension = name.substring(idx, name.length);
+    return directory + "husd-" + noExtension + "-" + rand + extension;
   },
 });
